@@ -1,5 +1,12 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
+    <a-layout class="layout-app">
+      <a-layout-header>Header</a-layout-header>
+      <a-layout class="layout-main">
+        <a-layout-sider>Sider</a-layout-sider>
+        <a-layout-content>Content</a-layout-content>
+      </a-layout> 
+    </a-layout>
   </div>
 </template>
 
@@ -10,18 +17,6 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  height: 100%;
 }
 </style>

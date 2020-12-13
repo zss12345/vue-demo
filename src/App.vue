@@ -1,14 +1,9 @@
 <template>
   <div id="app" class="app">
-    <a-layout class="layout-app">
-      <a-layout-header>Header</a-layout-header>
-      <a-layout class="layout-main">
-        <a-layout-sider>Sider</a-layout-sider>
-        <a-layout-content>Content</a-layout-content>
-      </a-layout> 
-    </a-layout>
+    <router-view></router-view>
   </div>
 </template>
+
 
 <style lang="less">
 #app {

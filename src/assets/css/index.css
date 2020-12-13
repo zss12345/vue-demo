@@ -34,3 +34,6 @@ html,body{
     color: #772277;
     border-bottom:2px solid #772277
 }
+.ant-form-explain{
+    text-align: left;
+}

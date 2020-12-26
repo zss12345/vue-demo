@@ -9,9 +9,7 @@
                 <a-input v-model="form.password" placeholder="input placeholder" />
             </a-form-model-item>
             <a-form-model-item>
-                <a-button type="primary" @click="submit">
-                    登录
-                </a-button>
+                <a-button type="primary" @click="submit">登录</a-button>
             </a-form-model-item>
         </a-form-model>
     </div>
@@ -53,8 +51,8 @@ export default {
         submit() {
             this.$refs['form'].validate((valid) => {
                 if (valid) {
-                    this.$router.push('/home');
-                    const routes = [{
+                    const routes = [];
+                    const arr = [{
                             menuName: '系统管理',
                             menuPath: '/adminManage',
                             children: [
@@ -62,14 +60,17 @@ export default {
                                 {
                                     menuName: '文档管理',
                                     menuPath: '/documentManage',
+                                    component: '@components/admin/DucumentManage.vue'
                                 },
                                 {
                                     menuName: '日志管理',
                                     menuPath: '/logManage',
+                                    component: '@components/admin/LogManage.vue'
                                 },
                                 {
                                     menuName: '产品管理',
                                     menuPath: '/productManage',
+                                    component: '@components/admin/ProductManage.vue'
                                 }
                             ]
                         },
@@ -81,10 +82,12 @@ export default {
                                 {
                                     menuName: '角色管理',
                                     menuPath: '/roleManage',
+                                    component: '@components/user/RoleManage.vue'
                                 },
                                 {
                                     menuName: '权限管理',
                                     menuPath: '/accessManage',
+                                    component: '@components/user/AccessManage.vue'
                                 }
                             ]
                         },
@@ -96,16 +99,35 @@ export default {
                                 {
                                     menuName: '服务器配置',
                                     menuPath: '/serverConfig',
+                                    component: '@components/config/ServerConfig.vue'
                                 },
                                 {
                                     menuName: '接入配置',
                                     menuPath: '/accessConfig',
+                                    component: '@components/config/AccessConfig.vue'
                                 }
                             ]
                         }
                     ];
-                    console.log(this.$store);
-                    this.$store.dispatch('getMenus', routes);
+                    arr.forEach(v => {
+                        if (v.children.length > 0) {
+                            v.children.forEach(k => {
+                                routes.push({
+                                    path: k.menuPath,
+                                    menuName: k.menuName,
+                                    components: () => import(`${k.component}`)
+                                })
+                            })
+                        }
+                    });
+                    this.$store.dispatch('getMenus', arr);
+                    this.$store.dispatch('saveSiderMenu', arr[0].children)
+                    this.$router.options.routes.push(...routes);
+                    this.$router.addRoutes(routes);
+                    this.$router.push({
+                        path: arr[0].children[0].menuPath
+                    });
+
                 }
             })
         }

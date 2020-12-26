@@ -6,17 +6,23 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    menus:[]
+    menus:[],
+    siderMenu:[]
   },
   mutations: {
     getMenus(state,payload){
         state.menus = payload;
-        console.log(state)
+    },
+    saveSiderMenu(state,payload){
+      state.siderMenu = payload;
     }
   },
   actions: {
     getMenus({commit},payload){
       commit('getMenus',payload);
+    },
+    saveSiderMenu({commit},payload){
+      commit('saveSiderMenu',payload);
     }
   },
   modules: {}
